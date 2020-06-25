@@ -8,6 +8,10 @@ class MyApp extends StatelessWidget{  //entire app is a stateless widget
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'company name generator',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.deepPurpleAccent,
+      ),
       home: RandomWords(),
     );
   }
@@ -67,6 +71,7 @@ Widget _buildRow(WordPair pair){
 }
 
 _pushSaved(){
+
   Navigator.of(context).push(
     MaterialPageRoute<void>(
       builder: (BuildContext context){
@@ -74,6 +79,19 @@ _pushSaved(){
           (WordPair pair){
             return ListTile(
               title: Text(pair.asPascalCase, style: _biggerFont,),
+              trailing: Icon ( Icons.favorite, color:Colors.red,),
+              onTap: (){ 
+                setState(() {
+                  if(_saved.contains(pair)){
+                  _saved.remove(pair);
+                  Icon(Icons.favorite_border, color: null,);
+                  }else
+                  {
+                    _saved.add(pair);
+                  }
+                
+              });
+              },
             );
           },
         );
